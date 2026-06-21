@@ -35,9 +35,9 @@
   }
   .cover-inner { text-align: center; padding: 0 32px; }
   .cover-badge {
-    display: block; font-family: 'Press Start 2P', monospace;
-    font-size: 7px; letter-spacing: 0.15em;
-    color: rgba(0,0,0,0.28); margin-bottom: 22px; line-height: 1.8;
+    display: block; font-family: 'Cormorant Garant', serif; font-style: italic;
+    font-size: 14px; letter-spacing: 0.06em;
+    color: rgba(0,0,0,0.3); margin-bottom: 22px; line-height: 1.8;
   }
   .cover-title {
     font-family: 'Fraunces', serif; font-weight: 300;
@@ -115,7 +115,8 @@
   #photoBg {
     position: absolute; inset: 0;
     background-image: url('photo.jpg');
-    background-size: cover; background-position: 50% top;
+    background-size: 100% auto; background-position: center top;
+    background-repeat: no-repeat;
   }
   #photoGrad {
     position: absolute; inset: 0;
@@ -127,8 +128,8 @@
     display: flex; flex-direction: column; align-items: center; gap: 16px;
   }
   .photo-kicker {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px; color: rgba(255,255,255,0.35); letter-spacing: 0.18em;
+    font-family: 'Cormorant Garant', serif; font-style: italic;
+    font-size: 15px; color: rgba(255,255,255,0.5); letter-spacing: 0.06em;
   }
   .photo-title {
     font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
@@ -156,8 +157,8 @@
     display: flex; flex-direction: column; align-items: center; gap: 20px;
   }
   .letter-badge {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px; color: rgba(0,0,0,0.25); letter-spacing: 0.18em;
+    font-family: 'Cormorant Garant', serif; font-style: italic;
+    font-size: 14px; color: rgba(0,0,0,0.28); letter-spacing: 0.06em;
   }
   .letter-title {
     font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
@@ -221,7 +222,7 @@
   <div id="winOverlay">
     <div class="win-flag-row" id="winFlag"></div>
     <div class="win-title">P1 — CHEQUERED FLAG!</div>
-    <div class="win-sub">Obviously. Get in there, mate.</div>
+    <div class="win-sub">Well driven, Dad. Knew you had it.</div>
     <button class="win-btn" id="btnPhoto">OPEN YOUR CARD &nbsp;→</button>
   </div>
 </div>
