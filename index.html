@@ -8,9 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fraunces:ital,wght@0,300;1,300&family=Cormorant+Garant:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; overflow: hidden; background: #000; }
+  html, body { height: 100%; overflow: hidden; background: #fff; }
 
-  /* ===== SCENE TRANSITIONS ===== */
   .scene {
     position: fixed; inset: 0;
     display: flex; flex-direction: column;
@@ -20,57 +19,55 @@
   .scene.out { opacity: 0; pointer-events: none; transform: scale(0.96); }
   .scene.in  { opacity: 1; pointer-events: auto; transform: scale(1); }
 
-  /* ===== PARTICLES ===== */
   #sparkLayer { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
   .spark { position: absolute; border-radius: 50%; animation: sparkFloat linear infinite; }
   @keyframes sparkFloat {
     0%   { transform: translateY(110vh) translateX(0); opacity: 0; }
     10%  { opacity: 0.6; }
-    90%  { opacity: 0.15; }
+    90%  { opacity: 0.12; }
     100% { transform: translateY(-30px) translateX(var(--sx)); opacity: 0; }
   }
 
-  /* ===== SCENE 1: COVER ===== */
+  /* COVER — red & white */
   #sceneCover {
-    background: radial-gradient(ellipse at 50% 40%, #2a0000 0%, #0a0a0a 70%);
+    background: radial-gradient(ellipse at 50% 40%, #fff0f0 0%, #f8f8f8 100%);
     z-index: 10;
   }
   .cover-inner { text-align: center; padding: 0 32px; }
   .cover-badge {
     display: block; font-family: 'Press Start 2P', monospace;
     font-size: 7px; letter-spacing: 0.15em;
-    color: rgba(255,255,255,0.3); margin-bottom: 22px; line-height: 1.8;
+    color: rgba(0,0,0,0.28); margin-bottom: 22px; line-height: 1.8;
   }
   .cover-title {
     font-family: 'Fraunces', serif; font-weight: 300;
-    font-size: clamp(34px, 9vw, 54px); line-height: 1.1; color: #fff;
+    font-size: clamp(34px, 9vw, 54px); line-height: 1.1; color: #111;
   }
   .cover-title em { color: #e8001d; font-style: normal; display: block; }
   .cover-sub {
     font-family: 'Cormorant Garant', serif; font-style: italic;
-    font-size: 18px; color: rgba(255,255,255,0.38); margin-top: 12px;
+    font-size: 18px; color: rgba(0,0,0,0.42); margin-top: 12px;
     letter-spacing: 0.03em;
   }
   .cover-flag {
     margin: 26px auto 0; width: 56px; height: 8px;
     background: repeating-linear-gradient(90deg,
-      #fff 0,#fff 8px,#111 8px,#111 16px,
-      #fff 16px,#fff 24px,#111 24px,#111 32px,
-      #fff 32px,#fff 40px,#111 40px,#111 48px,
-      #fff 48px,#fff 56px);
+      #e8001d 0,#e8001d 8px,#222 8px,#222 16px,
+      #e8001d 16px,#e8001d 24px,#222 24px,#222 32px,
+      #e8001d 32px,#e8001d 40px,#222 40px,#222 48px,
+      #e8001d 48px,#e8001d 56px);
   }
   .cover-btn {
     margin-top: 44px; display: inline-block;
     background: #e8001d; color: #fff; border: none;
     padding: 16px 36px; font-family: 'Press Start 2P', monospace;
     font-size: 11px; letter-spacing: 0.06em; cursor: pointer;
-    box-shadow: 0 5px 0 #8a0010, 0 10px 24px rgba(232,0,29,0.35);
-    transition: transform 0.1s, box-shadow 0.1s;
-    border-radius: 3px;
+    box-shadow: 0 5px 0 #8a0010, 0 10px 24px rgba(232,0,29,0.3);
+    transition: transform 0.1s, box-shadow 0.1s; border-radius: 3px;
   }
   .cover-btn:active { transform: translateY(5px); box-shadow: 0 0 0 #8a0010; }
 
-  /* ===== SCENE 2: RACE ===== */
+  /* RACE */
   #sceneRace {
     background: #000; z-index: 10;
     padding: 0; justify-content: flex-start; align-items: stretch;
@@ -83,7 +80,6 @@
   }
   #gameCanvas:active { cursor: grabbing; }
 
-  /* win overlay */
   #winOverlay {
     position: absolute; inset: 0; z-index: 20;
     display: none; flex-direction: column;
@@ -92,10 +88,7 @@
     text-align: center; padding: 32px;
   }
   #winOverlay.show { display: flex; }
-  .win-flag-row {
-    display: flex; gap: 0;
-    box-shadow: 0 0 30px rgba(255,215,0,0.5);
-  }
+  .win-flag-row { display: flex; box-shadow: 0 0 30px rgba(255,215,0,0.5); }
   .win-flag-cell { width: 12px; height: 12px; }
   .win-title {
     font-family: 'Press Start 2P', monospace;
@@ -117,7 +110,7 @@
   }
   .win-btn:active { transform: translateY(4px); box-shadow: none; }
 
-  /* ===== SCENE 3: PHOTO ===== */
+  /* PHOTO */
   #scenePhoto { z-index: 10; background: #050c18; justify-content: flex-end; }
   #photoBg {
     position: absolute; inset: 0;
@@ -151,10 +144,10 @@
   }
   .photo-btn:active { transform: translateY(4px); box-shadow: none; }
 
-  /* ===== SCENE 4: LETTER ===== */
+  /* LETTER — red & white */
   #sceneLetter {
     z-index: 10;
-    background: radial-gradient(ellipse at 50% 40%, #2a0000 0%, #0a0a0a 70%);
+    background: radial-gradient(ellipse at 50% 40%, #fff5f5 0%, #fafafa 100%);
     justify-content: flex-start; overflow-y: auto; align-items: center;
   }
   .letter-inner {
@@ -164,52 +157,47 @@
   }
   .letter-badge {
     font-family: 'Press Start 2P', monospace;
-    font-size: 7px; color: rgba(255,255,255,0.25); letter-spacing: 0.18em;
+    font-size: 7px; color: rgba(0,0,0,0.25); letter-spacing: 0.18em;
   }
   .letter-title {
     font-family: 'Fraunces', serif; font-weight: 300; font-style: italic;
-    font-size: clamp(26px, 7vw, 40px); color: #fff; line-height: 1.2;
+    font-size: clamp(26px, 7vw, 40px); color: #111; line-height: 1.2;
   }
   .letter-rule {
     width: 56px; height: 5px;
     background: repeating-linear-gradient(90deg,
-      #e8001d 0,#e8001d 8px,#fff 8px,#fff 16px);
+      #e8001d 0,#e8001d 8px,#222 8px,#222 16px);
     border-radius: 1px;
   }
   .letter-body {
     font-family: 'Cormorant Garant', serif;
-    font-size: 19px; line-height: 1.85; color: rgba(255,255,255,0.8);
+    font-size: 19px; line-height: 1.85; color: rgba(0,0,0,0.72);
     text-align: left;
   }
   .letter-body p + p { margin-top: 18px; }
   .letter-sign {
     font-family: 'Cormorant Garant', serif; font-style: italic;
-    font-size: 20px; color: rgba(255,255,255,0.65); line-height: 1.7;
+    font-size: 20px; color: rgba(0,0,0,0.55); line-height: 1.7;
   }
   .letter-token {
     width: 100%; max-width: 300px;
-    border: 2px dashed rgba(196,154,60,0.55);
-    border-radius: 6px;
-    padding: 18px 22px 16px;
-    background: rgba(196,154,60,0.06);
-    text-align: center;
-    position: relative;
+    border: 2px dashed rgba(196,154,60,0.6);
+    border-radius: 6px; padding: 18px 22px 16px;
+    background: rgba(196,154,60,0.06); text-align: center;
   }
   .letter-token::before {
-    content: '● 1 TOKEN ●';
-    display: block;
+    content: '● 1 TOKEN ●'; display: block;
     font-family: 'Press Start 2P', monospace;
     font-size: 7px; letter-spacing: 0.2em;
-    color: rgba(196,154,60,0.6);
-    margin-bottom: 10px;
+    color: rgba(196,154,60,0.65); margin-bottom: 10px;
   }
   .letter-token-main {
     font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
-    font-size: 21px; color: #c49a3c; line-height: 1.3;
+    font-size: 21px; color: #b58a2a; line-height: 1.3;
   }
   .letter-token-sub {
     font-family: 'Cormorant Garant', serif; font-style: italic;
-    font-size: 14px; color: rgba(255,255,255,0.35);
+    font-size: 14px; color: rgba(0,0,0,0.38);
     margin-top: 8px; letter-spacing: 0.04em;
   }
 </style>
@@ -218,7 +206,6 @@
 
 <div id="sparkLayer"></div>
 
-<!-- ===== SCENE 1: COVER ===== -->
 <div class="scene in" id="sceneCover">
   <div class="cover-inner">
     <span class="cover-badge">Paul &middot; Father&apos;s Day 2026</span>
@@ -229,7 +216,6 @@
   </div>
 </div>
 
-<!-- ===== SCENE 2: RACE ===== -->
 <div class="scene out" id="sceneRace">
   <canvas id="gameCanvas"></canvas>
   <div id="winOverlay">
@@ -240,7 +226,6 @@
   </div>
 </div>
 
-<!-- ===== SCENE 3: PHOTO ===== -->
 <div class="scene out" id="scenePhoto">
   <div id="photoBg"></div>
   <div id="photoGrad"></div>
@@ -251,7 +236,6 @@
   </div>
 </div>
 
-<!-- ===== SCENE 4: LETTER ===== -->
 <div class="scene out" id="sceneLetter">
   <div class="letter-inner">
     <span class="letter-badge">Father&apos;s Day 2026</span>
@@ -276,39 +260,28 @@
 (function () {
 'use strict';
 
-/* ============================================================
-   SPARKS
-   ============================================================ */
+/* Sparks */
 var sl = document.getElementById('sparkLayer');
-var sc = ['rgba(232,0,29,0.55)','rgba(255,255,255,0.22)','rgba(255,215,0,0.35)','rgba(232,0,29,0.3)'];
+var sc = ['rgba(232,0,29,0.55)','rgba(0,0,0,0.08)','rgba(196,154,60,0.45)','rgba(232,0,29,0.3)'];
 for (var i = 0; i < 18; i++) {
   var sp = document.createElement('div');
   sp.className = 'spark';
   var sz = 2 + Math.random() * 5;
-  sp.style.cssText =
-    'width:' + sz + 'px;height:' + sz + 'px;' +
-    'left:' + (Math.random() * 100) + '%;' +
-    'background:' + sc[i % sc.length] + ';' +
-    'animation-duration:' + (8 + Math.random() * 10) + 's;' +
-    'animation-delay:' + (Math.random() * 14) + 's;' +
-    '--sx:' + (Math.random() * 80 - 40) + 'px';
+  sp.style.cssText = 'width:'+sz+'px;height:'+sz+'px;left:'+(Math.random()*100)+'%;background:'+sc[i%sc.length]+';animation-duration:'+(8+Math.random()*10)+'s;animation-delay:'+(Math.random()*14)+'s;--sx:'+(Math.random()*80-40)+'px';
   sl.appendChild(sp);
 }
 
-/* Build checkerboard win flag */
+/* Win flag */
 var wf = document.getElementById('winFlag');
-for (var ri = 0; ri < 2; ri++) {
+for (var ri = 0; ri < 2; ri++)
   for (var ci = 0; ci < 12; ci++) {
     var cell = document.createElement('div');
     cell.className = 'win-flag-cell';
-    cell.style.background = (ri + ci) % 2 === 0 ? '#fff' : '#000';
+    cell.style.background = (ri+ci)%2===0 ? '#fff' : '#000';
     wf.appendChild(cell);
   }
-}
 
-/* ============================================================
-   SCENE NAV
-   ============================================================ */
+/* Scene nav */
 var scenes = {
   cover:  document.getElementById('sceneCover'),
   race:   document.getElementById('sceneRace'),
@@ -316,59 +289,44 @@ var scenes = {
   letter: document.getElementById('sceneLetter')
 };
 function go(name) {
-  Object.keys(scenes).forEach(function (k) {
-    scenes[k].classList.toggle('in',  k === name);
-    scenes[k].classList.toggle('out', k !== name);
+  Object.keys(scenes).forEach(function(k) {
+    scenes[k].classList.toggle('in',  k===name);
+    scenes[k].classList.toggle('out', k!==name);
   });
 }
 
-document.getElementById('btnRace').addEventListener('click', function () {
-  go('race');
-  setTimeout(startGame, 180);
+document.getElementById('btnRace').addEventListener('click', function() {
+  go('race'); setTimeout(startGame, 180);
 });
-document.getElementById('btnPhoto').addEventListener('click', function () { go('photo'); });
-document.getElementById('btnLetter').addEventListener('click', function () {
-  go('letter');
-  document.getElementById('sceneLetter').scrollTop = 0;
+document.getElementById('btnPhoto').addEventListener('click', function() { go('photo'); });
+document.getElementById('btnLetter').addEventListener('click', function() {
+  go('letter'); document.getElementById('sceneLetter').scrollTop = 0;
 });
 
 /* ============================================================
-   F1 RACING GAME
+   GAME
    ============================================================ */
 var canvas = document.getElementById('gameCanvas');
 var ctx    = canvas.getContext('2d');
-var PX     = 2;  /* canvas drawn at half-res → 2× CSS scale = chunky 16-bit pixels */
+var PX     = 2;
 
-/* Layout in CANVAS units (pre-scale) */
-var CW, CH;
-var ROAD_L, ROAD_R, ROAD_W, KERB_W, TRACK_L, TRACK_R;
-var PLAYER_W = 11;
-var PLAYER_H = 22;
-var PLAYER_Y;
+var CW, CH, ROAD_L, ROAD_R, ROAD_W, KERB_W, TRACK_L, TRACK_R, PLAYER_Y;
+var PLAYER_W = 11, PLAYER_H = 22;
 
-/* Curve state */
-var curveDX = 0;
-var curveTarget = 0;
-var curveTimer  = 0;
+/* Curve */
+var curveDX = 0, curveTarget = 0, curveTimer = 0;
 
 /* Player */
-var pX;           /* canvas-unit x position */
-var dragX0 = null;
-var pX0    = null;
+var pX, dragX0 = null, pX0 = null;
 
 /* Physics */
-var spd   = 0;   /* 0–100 */
-var dist  = 0;
-var RACE_DIST = 1800;
-var scroll    = 0;   /* track line scroll offset */
-var prevKerb  = false;
-var prevGrass = false;
-var flashFrames = 0;
+var spd = 0, dist = 0, scroll = 0;
+var prevKerb = false, prevGrass = false, flashFrames = 0;
+var RACE_DIST = 5400;
 
-/* AI cars */
-var aiCars       = [];
-var aiSpawnTimer = 0;
-var AI_COLORS    = [
+/* AI */
+var aiCars = [], aiSpawnTimer = 0, aiColorIdx = 0;
+var AI_COLORS = [
   {b:'#00d2be',a:'#fff',c:'#002822'},
   {b:'#ff8000',a:'#000',c:'#4c2700'},
   {b:'#0067ff',a:'#fff',c:'#00174d'},
@@ -378,141 +336,142 @@ var AI_COLORS    = [
   {b:'#0090d0',a:'#fff',c:'#003a55'},
   {b:'#2293d1',a:'#e02040',c:'#08304a'}
 ];
-var aiColorIdx = 0;
 
-/* Countdown */
-var cdState  = 'idle';   /* idle | countdown | go | racing | won */
-var cdFrame  = 0;
-var lights   = [false,false,false,false,false];
-var showGo   = false;
-var goAlpha  = 0;
+/* Countdown: 4 lights count DOWN — 4 lit, 3 lit, 2 lit, 1 lit, random delay, GO */
+var cdState   = 'idle';
+var cdFrame   = 0;
+var cdGoDelay = -1;
+var goStartFrame = 0;
+var lights    = [false,false,false,false];
+var showGo    = false;
+var goAlpha   = 0;
 var raceFrame = 0;
-var LIGHT_F  = 36;   /* frames per light on */
+var LIGHT_F   = 36;
+
+var rafId = null;
 
 /* ---- SETUP ---- */
 function setupCanvas() {
-  var el = canvas.parentElement;
-  var w  = el.offsetWidth  || window.innerWidth;
-  var h  = el.offsetHeight || window.innerHeight;
+  var w = window.innerWidth, h = window.innerHeight;
   canvas.style.width  = w + 'px';
   canvas.style.height = h + 'px';
   CW = Math.floor(w / PX);
   CH = Math.floor(h / PX);
   canvas.width  = CW;
   canvas.height = CH;
-  ROAD_L   = Math.floor(CW * 0.12);
-  ROAD_R   = Math.floor(CW * 0.88);
-  ROAD_W   = ROAD_R - ROAD_L;
-  KERB_W   = Math.max(2, Math.floor(ROAD_W * 0.055));
-  TRACK_L  = ROAD_L + KERB_W;
-  TRACK_R  = ROAD_R - KERB_W;
+  ROAD_L  = Math.floor(CW * 0.28);
+  ROAD_R  = Math.floor(CW * 0.72);
+  ROAD_W  = ROAD_R - ROAD_L;
+  KERB_W  = Math.max(2, Math.floor(ROAD_W * 0.07));
+  TRACK_L = ROAD_L + KERB_W;
+  TRACK_R = ROAD_R - KERB_W;
   PLAYER_Y = Math.floor(CH * 0.76);
 }
 
 function startGame() {
   setupCanvas();
-  pX         = Math.floor(CW / 2 - PLAYER_W / 2);
-  spd        = 0;
-  dist       = 0;
-  scroll     = 0;
-  curveDX    = 0;
-  curveTarget = 0;
-  curveTimer  = 0;
-  aiCars      = [];
-  aiSpawnTimer = 40;
-  aiColorIdx  = 0;
-  flashFrames  = 0;
-  prevKerb     = false;
-  prevGrass    = false;
-  raceFrame    = 0;
-  cdState  = 'countdown';
-  cdFrame  = 0;
-  lights   = [false,false,false,false,false];
-  showGo   = false;
-  goAlpha  = 0;
+  pX          = Math.floor((TRACK_L + TRACK_R) / 2 - PLAYER_W / 2);
+  spd         = 0; dist = 0; scroll = 0;
+  curveDX     = 0; curveTarget = 0; curveTimer = 0;
+  aiCars      = []; aiColorIdx = 0;
+  flashFrames = 0; prevKerb = false; prevGrass = false; raceFrame = 0;
+  cdState     = 'countdown'; cdFrame = 0; cdGoDelay = -1;
+  lights      = [false,false,false,false];
+  showGo      = false; goAlpha = 0;
+  spawnGrid();
+  aiSpawnTimer = 90;
   document.getElementById('winOverlay').classList.remove('show');
   if (rafId) cancelAnimationFrame(rafId);
   rafId = requestAnimationFrame(tick);
 }
 
-var rafId = null;
+/* Place AI cars in starting grid formation */
+function spawnGrid() {
+  var spacing = Math.floor(PLAYER_H * 1.9);
+  var laneW   = Math.floor((TRACK_R - TRACK_L) / 3);
+  var defs    = [
+    {lane:0, row:1}, {lane:2, row:1},
+    {lane:1, row:2},
+    {lane:0, row:3}, {lane:2, row:3}
+  ];
+  for (var i = 0; i < defs.length; i++) {
+    var d = defs[i];
+    var ax = TRACK_L + d.lane * laneW + Math.floor(laneW / 2 - PLAYER_W / 2);
+    var ay = PLAYER_Y - spacing * d.row - PLAYER_H;
+    var col = AI_COLORS[aiColorIdx % AI_COLORS.length];
+    aiColorIdx++;
+    aiCars.push({x:ax, y:ay, w:PLAYER_W, h:Math.floor(PLAYER_H*0.92), col:col, hit:false});
+  }
+}
 
 /* ---- DRAW HELPERS ---- */
-function px$fill(x,y,w,h,c) {
+function fill(x,y,w,h,c) {
   ctx.fillStyle = c;
   ctx.fillRect(Math.floor(x), Math.floor(y), Math.ceil(w), Math.ceil(h));
 }
 
-/* Draw a top-down F1 car */
 function drawCar(x, y, w, h, bc, ac, cc) {
-  /* front wing */
-  px$fill(x-1, y, w+2, Math.floor(h*0.12), bc);
-  /* body */
-  px$fill(x+1, y+Math.floor(h*0.09), w-2, Math.floor(h*0.74), bc);
-  /* rear wing */
-  px$fill(x-1, y+Math.floor(h*0.83), w+2, Math.floor(h*0.11), bc);
-  /* cockpit */
-  px$fill(x+Math.floor(w*0.22), y+Math.floor(h*0.22), Math.floor(w*0.56), Math.floor(h*0.36), cc || '#111');
-  /* accent stripe */
-  px$fill(x+Math.floor(w*0.38), y+Math.floor(h*0.1), Math.floor(w*0.24), Math.floor(h*0.72), ac);
+  fill(x-1,           y,                    w+2,             Math.floor(h*0.12), bc);
+  fill(x+1,           y+Math.floor(h*0.09), w-2,             Math.floor(h*0.74), bc);
+  fill(x-1,           y+Math.floor(h*0.83), w+2,             Math.floor(h*0.11), bc);
+  fill(x+Math.floor(w*0.22), y+Math.floor(h*0.22), Math.floor(w*0.56), Math.floor(h*0.36), cc||'#111');
+  fill(x+Math.floor(w*0.38), y+Math.floor(h*0.10), Math.floor(w*0.24), Math.floor(h*0.72), ac);
 }
 
-/* ---- MAIN DRAW ---- */
+/* ---- DRAW ---- */
 function draw() {
   ctx.imageSmoothingEnabled = false;
 
-  /* Effective road position with curve offset */
-  var rl = ROAD_L + curveDX;
-  var rr = ROAD_R + curveDX;
-  var rw = rr - rl;
-  var kw = Math.max(2, Math.floor(rw * 0.055));
-  var tl = rl + kw;
-  var tr = rr - kw;
-
-  /* Sky strip */
+  /* Effective road with curve offset */
+  var rl = ROAD_L + curveDX, rr = ROAD_R + curveDX, rw = rr - rl;
+  var kw = Math.max(2, Math.floor(rw * 0.07));
+  var tl = rl + kw, tr = rr - kw;
   var SKY = Math.floor(CH * 0.07);
-  px$fill(0, 0, CW, SKY, '#1a3a6b');
 
-  /* Grass full background */
-  px$fill(0, SKY, CW, CH-SKY, '#1a6b0a');
+  /* Sky */
+  fill(0, 0, CW, SKY, '#1a3a6b');
 
-  /* Alternating grass stripes (scroll) */
+  /* Grass base */
+  fill(0, SKY, CW, CH - SKY, '#1a6b0a');
+
+  /* Scrolling stripes — scroll value increases → stripes move DOWN (forward) */
   var STRIPE = 14;
   var sOff = Math.floor(scroll * 1.8) % (STRIPE * 2);
-  for (var sy = SKY - sOff; sy < CH; sy += STRIPE * 2) {
-    px$fill(0,   sy, rl,      STRIPE, '#228c12');
-    px$fill(rr,  sy, CW - rr, STRIPE, '#228c12');
+  for (var sy = SKY + sOff - STRIPE * 2; sy < CH; sy += STRIPE * 2) {
+    fill(0,  sy, rl,       STRIPE, '#228c12');
+    fill(rr, sy, CW - rr,  STRIPE, '#228c12');
   }
 
   /* Road */
-  px$fill(rl, SKY, rw, CH - SKY, '#2d2d2d');
+  fill(rl, SKY, rw, CH - SKY, '#2d2d2d');
 
-  /* Road texture stripes */
-  for (var ry = SKY - sOff; ry < CH; ry += STRIPE * 2) {
-    px$fill(rl, ry, rw, STRIPE, '#323232');
+  /* Road texture stripes — downward */
+  for (var ry = SKY + sOff - STRIPE * 2; ry < CH; ry += STRIPE * 2) {
+    fill(rl, ry, rw, STRIPE, '#323232');
   }
 
-  /* Kerbs (alternating red/white, scrolling) */
+  /* Kerbs — downward */
   var KS = 9;
   var kOff = Math.floor(scroll * 1.8) % (KS * 2);
-  for (var ky = SKY - kOff; ky < CH; ky += KS * 2) {
-    /* left kerb */
-    px$fill(rl, ky,      kw, KS, '#e8001d');
-    px$fill(rl, ky + KS, kw, KS, '#f0f0f0');
-    /* right kerb */
-    px$fill(rr - kw, ky,      kw, KS, '#e8001d');
-    px$fill(rr - kw, ky + KS, kw, KS, '#f0f0f0');
+  for (var ky = SKY + kOff - KS * 2; ky < CH; ky += KS * 2) {
+    fill(rl,      ky,      kw, KS, '#e8001d');
+    fill(rl,      ky + KS, kw, KS, '#f0f0f0');
+    fill(rr - kw, ky,      kw, KS, '#e8001d');
+    fill(rr - kw, ky + KS, kw, KS, '#f0f0f0');
   }
 
-  /* Lane dividers (dashed, scrolling) */
+  /* Lane dividers — downward */
   var DASH = 12, DASHGAP = 12;
   var dOff = Math.floor(scroll * 1.8) % (DASH + DASHGAP);
   var div1 = tl + Math.floor((tr - tl) / 3);
   var div2 = tl + Math.floor((tr - tl) * 2 / 3);
-  for (var dy = SKY - dOff; dy < CH; dy += DASH + DASHGAP) {
-    px$fill(div1 - 1, dy, 2, DASH, 'rgba(255,255,255,0.5)');
-    px$fill(div2 - 1, dy, 2, DASH, 'rgba(255,255,255,0.5)');
+  for (var dy = SKY + dOff - (DASH + DASHGAP); dy < CH; dy += DASH + DASHGAP) {
+    fill(div1 - 1, dy, 2, DASH, 'rgba(255,255,255,0.5)');
+    fill(div2 - 1, dy, 2, DASH, 'rgba(255,255,255,0.5)');
   }
+
+  /* Finish line */
+  drawFinishLine(rl, rr, rw);
 
   /* AI cars */
   for (var i = 0; i < aiCars.length; i++) {
@@ -520,7 +479,7 @@ function draw() {
     drawCar(ac.x, ac.y, ac.w, ac.h, ac.col.b, ac.col.a, ac.col.c);
   }
 
-  /* Player car */
+  /* Player car (flash on collision) */
   if (flashFrames > 0 && Math.floor(flashFrames / 3) % 2 === 0) {
     drawCar(pX, PLAYER_Y, PLAYER_W, PLAYER_H, '#fff', '#e8001d', '#555');
   } else {
@@ -528,124 +487,141 @@ function draw() {
   }
   if (flashFrames > 0) flashFrames--;
 
-  /* HUD */
-  drawHUD(tl, tr);
+  drawHUD();
 
-  /* Countdown overlay */
-  if (cdState === 'countdown' || cdState === 'go') {
-    drawCountdown();
-  }
+  if (cdState === 'countdown' || cdState === 'go') drawCountdown();
+  if (cdState === 'won') { ctx.fillStyle = 'rgba(255,215,0,0.06)'; ctx.fillRect(0,0,CW,CH); }
+}
 
-  /* Won canvas effect */
-  if (cdState === 'won') {
-    ctx.fillStyle = 'rgba(255,215,0,0.06)';
-    ctx.fillRect(0, 0, CW, CH);
+function drawFinishLine(rl, rr, rw) {
+  if (cdState !== 'racing' && cdState !== 'won') return;
+  var s100 = spd / 100;
+  var rate = 0.8 + s100 * 2.8;
+  var drate = s100 * 2.5;
+  var pxPer = drate > 0.01 ? rate / drate : 1.44;
+  var fy = Math.floor(PLAYER_Y - (RACE_DIST - dist) * pxPer);
+  if (fy > CH || fy < -10) return;
+  var CELL = Math.max(3, Math.floor(rw / 18));
+  var n = Math.floor(rw / CELL);
+  for (var ci = 0; ci < n; ci++) {
+    var lite = ci % 2 === 0;
+    fill(rl + ci * CELL, fy,        CELL, CELL, lite ? '#fff' : '#111');
+    fill(rl + ci * CELL, fy + CELL, CELL, CELL, lite ? '#111' : '#fff');
   }
 }
 
-function drawHUD(tl, tr) {
-  var BAR_X  = Math.floor(CW * 0.08);
-  var BAR_W  = Math.floor(CW * 0.84);
-  var BAR_Y  = 5;
-  var BAR_H  = 7;
-
-  /* Speed bar */
-  px$fill(BAR_X, BAR_Y, BAR_W, BAR_H, '#111');
-  var fill  = Math.floor(BAR_W * Math.min(spd / 100, 1));
-  var sCol  = spd > 70 ? '#00cc44' : spd > 40 ? '#ffcc00' : '#e8001d';
-  px$fill(BAR_X, BAR_Y, fill, BAR_H, sCol);
-  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
-  ctx.lineWidth   = 1;
-  ctx.strokeRect(BAR_X + 0.5, BAR_Y + 0.5, BAR_W - 1, BAR_H - 1);
-
-  /* Progress pip row (tiny) */
-  var PROG_Y = BAR_Y + BAR_H + 2;
-  px$fill(BAR_X, PROG_Y, BAR_W, 2, '#111');
-  var progFill = Math.floor(BAR_W * Math.min(dist / RACE_DIST, 1));
-  px$fill(BAR_X, PROG_Y, progFill, 2, '#e8001d');
-
-  /* Labels */
-  ctx.font      = '5px "Press Start 2P"';
-  ctx.fillStyle = '#fff';
+function drawHUD() {
+  /* Speed bar — top */
+  var BX = Math.floor(CW * 0.08), BW = Math.floor(CW * 0.84);
+  var BY = 5, BH = 6;
+  fill(BX, BY, BW, BH, '#111');
+  var sCol = spd > 70 ? '#00cc44' : spd > 40 ? '#ffcc00' : '#e8001d';
+  fill(BX, BY, Math.floor(BW * Math.min(spd/100, 1)), BH, sCol);
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+  ctx.lineWidth = 0.5;
+  ctx.strokeRect(BX + 0.5, BY + 0.5, BW - 1, BH - 1);
+  ctx.font = '4px "Press Start 2P"';
+  ctx.fillStyle = 'rgba(255,255,255,0.45)';
   ctx.textAlign = 'left';
-  ctx.fillText('SPD ' + Math.floor(spd) + '%', BAR_X, BAR_Y - 1);
+  ctx.fillText('SPD', BX, BY - 1);
+
+  /* Bottom-right: circular progress arc + position */
+  var arcR  = Math.floor(CW * 0.056);
+  var arcCX = CW - arcR - 8;
+  var arcCY = CH - arcR - 8;
+  var prog  = Math.min(dist / RACE_DIST, 1);
+
+  ctx.beginPath();
+  ctx.arc(arcCX, arcCY, arcR, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  if (prog > 0) {
+    ctx.beginPath();
+    ctx.arc(arcCX, arcCY, arcR, -Math.PI/2, -Math.PI/2 + Math.PI*2*prog);
+    ctx.strokeStyle = '#e8001d';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+  }
 
   var pos = Math.max(1, 10 - Math.floor(dist / (RACE_DIST / 9)));
-  ctx.textAlign = 'right';
-  ctx.fillStyle = pos === 1 ? '#ffd700' : '#fff';
-  ctx.fillText('P' + pos, BAR_X + BAR_W, BAR_Y - 1);
-  ctx.textAlign = 'left';
+  ctx.font         = '5px "Press Start 2P"';
+  ctx.fillStyle    = pos === 1 ? '#ffd700' : 'rgba(255,255,255,0.75)';
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('P' + pos, arcCX, arcCY);
+  ctx.textBaseline = 'alphabetic';
 
-  /* Grass/kerb warning */
+  /* Off-track warning */
   if (prevGrass) {
     ctx.fillStyle = 'rgba(255,200,0,0.9)';
     ctx.font      = '5px "Press Start 2P"';
     ctx.textAlign = 'center';
-    ctx.fillText('OFF TRACK!', Math.floor(CW / 2), Math.floor(CH * 0.2));
-    ctx.textAlign = 'left';
+    ctx.fillText('OFF TRACK!', Math.floor(CW/2), Math.floor(CH*0.2));
   }
 
-  /* Drag hint (first 3 sec of race) */
+  /* Drag hint fades after 3s */
   if (cdState === 'racing' && raceFrame < 180) {
-    var hAlpha = raceFrame > 120 ? 1 - (raceFrame - 120) / 60 : 1;
-    ctx.fillStyle = 'rgba(255,255,255,' + (hAlpha * 0.45) + ')';
+    var ha = raceFrame > 120 ? 1 - (raceFrame-120)/60 : 1;
+    ctx.fillStyle = 'rgba(255,255,255,' + (ha*0.4) + ')';
     ctx.font      = '4px "Press Start 2P"';
     ctx.textAlign = 'center';
-    ctx.fillText('← DRAG TO STEER →', Math.floor(CW / 2), Math.floor(CH * 0.93));
-    ctx.textAlign = 'left';
+    ctx.fillText('← DRAG TO STEER →', Math.floor(CW/2), Math.floor(CH*0.93));
   }
+  ctx.textAlign = 'left';
 }
 
 function drawCountdown() {
-  ctx.fillStyle = 'rgba(0,0,0,0.62)';
+  ctx.fillStyle = 'rgba(0,0,0,0.65)';
   ctx.fillRect(0, 0, CW, CH);
 
   ctx.fillStyle = 'rgba(255,255,255,0.7)';
   ctx.font      = '5px "Press Start 2P"';
   ctx.textAlign = 'center';
-  ctx.fillText('LIGHTS OUT AND AWAY WE GO', Math.floor(CW / 2), Math.floor(CH * 0.34));
+  ctx.fillText('LIGHTS OUT AND AWAY WE GO', Math.floor(CW/2), Math.floor(CH*0.34));
 
-  /* 5 lights */
+  /* 4 lights */
   var LS    = Math.floor(CW * 0.09);
   var LGAP  = Math.floor(CW * 0.03);
-  var totalW = 5 * LS + 4 * LGAP;
+  var totalW = 4 * LS + 3 * LGAP;
   var lx0   = Math.floor((CW - totalW) / 2);
   var ly    = Math.floor(CH * 0.40);
-
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 4; i++) {
     var lx = lx0 + i * (LS + LGAP);
-    px$fill(lx,   ly,   LS,   LS,   '#222');
-    px$fill(lx+1, ly+1, LS-2, LS-2, '#1a0000');
+    fill(lx,   ly,   LS,   LS,   '#222');
+    fill(lx+1, ly+1, LS-2, LS-2, '#1a0000');
     if (lights[i]) {
-      px$fill(lx+1, ly+1, LS-2, LS-2, '#cc0000');
-      px$fill(lx+3, ly+3, LS-6, LS-6, '#ff4444');
+      fill(lx+1, ly+1, LS-2, LS-2, '#cc0000');
+      fill(lx+3, ly+3, LS-6, LS-6, '#ff4444');
     }
   }
 
   if (showGo) {
-    ctx.fillStyle = 'rgba(0,230,80,' + Math.min(goAlpha, 1) + ')';
-    ctx.font      = Math.floor(CW * 0.13) + 'px "Press Start 2P"';
+    ctx.fillStyle = 'rgba(0,230,80,' + Math.min(goAlpha,1) + ')';
+    ctx.font      = Math.floor(CW*0.13) + 'px "Press Start 2P"';
     ctx.textAlign = 'center';
-    ctx.fillText('GO!', Math.floor(CW / 2), Math.floor(CH * 0.58));
+    ctx.fillText('GO!', Math.floor(CW/2), Math.floor(CH*0.58));
   }
   ctx.textAlign = 'left';
 }
 
 /* ---- UPDATE ---- */
 function update() {
-  /* Countdown state machine */
+  /* COUNTDOWN: 4 lights on → 3 → 2 → 1 → all off → random delay → GO */
   if (cdState === 'countdown') {
     cdFrame++;
     var step = Math.floor(cdFrame / LIGHT_F);
-    for (var li = 0; li < 5; li++) lights[li] = li < step;
-    if (step >= 5) {
-      var after = cdFrame - 5 * LIGHT_F;
-      if (after >= 18) {
-        /* lights out */
-        lights = [false,false,false,false,false];
-        showGo = true;
-        cdState = 'go';
-        goAlpha = 0;
+    if (step < 4) {
+      var on = 4 - step;
+      for (var li = 0; li < 4; li++) lights[li] = li < on;
+    } else {
+      for (var li = 0; li < 4; li++) lights[li] = false;
+      if (cdGoDelay < 0) {
+        cdGoDelay = cdFrame + 60 + Math.floor(Math.random() * 121); /* 1–3s */
+      }
+      if (cdFrame >= cdGoDelay) {
+        showGo = true; cdState = 'go'; goAlpha = 0; goStartFrame = cdFrame;
       }
     }
     return;
@@ -654,10 +630,8 @@ function update() {
   if (cdState === 'go') {
     goAlpha += 0.08;
     cdFrame++;
-    if (cdFrame > 5 * LIGHT_F + 50) {
-      showGo  = false;
-      cdState = 'racing';
-      spd     = 45;
+    if (cdFrame - goStartFrame > 50) {
+      showGo = false; cdState = 'racing'; spd = 45;
     }
     return;
   }
@@ -666,63 +640,51 @@ function update() {
 
   raceFrame++;
 
-  /* Curve drift */
+  /* Curves — stronger, longer period */
   curveTimer++;
-  if (curveTimer >= 140) {
-    curveTimer   = 0;
-    curveTarget  = (Math.random() * 2 - 1) * Math.floor(CW * 0.06);
+  if (curveTimer >= 220) {
+    curveTimer  = 0;
+    curveTarget = (Math.random() * 2 - 1) * Math.floor(CW * 0.13);
   }
-  curveDX += (curveTarget - curveDX) * 0.018;
+  curveDX += (curveTarget - curveDX) * 0.011;
 
-  /* Effective track bounds */
-  var rl = ROAD_L + curveDX;
-  var rr = ROAD_R + curveDX;
-  var kw = Math.max(2, Math.floor((rr - rl) * 0.055));
-  var tl = rl + kw;
-  var tr = rr - kw;
+  /* Effective bounds */
+  var rl = ROAD_L + curveDX, rr = ROAD_R + curveDX;
+  var kw = Math.max(2, Math.floor((rr-rl)*0.07));
+  var tl = rl + kw, tr = rr - kw;
 
-  /* Player zone detection */
-  var pLeft  = pX;
-  var pRight = pX + PLAYER_W;
-  var pMid   = pX + PLAYER_W / 2;
+  /* Zone detection */
+  var pMid = pX + PLAYER_W / 2;
   var onGrass = pMid < rl || pMid > rr;
-  var onKerb  = !onGrass && (pLeft < tl || pRight > tr);
+  var onKerb  = !onGrass && (pX < tl || pX + PLAYER_W > tr);
 
-  /* Grass penalty */
   if (onGrass) {
     spd = Math.min(spd, 50);
     spd = Math.max(0, spd - 2);
   } else if (onKerb) {
-    /* Kerb entry: one-time -20 */
     if (!prevKerb) spd = Math.max(0, spd - 20);
     spd = Math.min(100, spd + 0.3);
   } else {
-    /* Clear track: accelerate to 100 */
     spd = Math.min(100, spd + 0.9);
   }
   prevGrass = onGrass;
   prevKerb  = onKerb;
 
-  /* Scroll rate */
-  var rate = 0.8 + spd / 100 * 2.8;
+  var rate = 0.8 + spd/100 * 2.8;
   scroll += rate;
+  dist   += spd/100 * 2.5;
 
-  /* Distance */
-  dist += spd / 100 * 2.5;
-
-  /* Spawn AI cars */
+  /* Spawn incoming AI */
   aiSpawnTimer--;
   if (aiSpawnTimer <= 0) {
     aiSpawnTimer = 55 + Math.floor(Math.random() * 30);
     spawnAI(tl, tr);
   }
 
-  /* Move AI cars */
+  /* Move AI + collision */
   for (var i = aiCars.length - 1; i >= 0; i--) {
     var ac = aiCars[i];
     ac.y += rate * 0.9;
-
-    /* Collision with player */
     if (!ac.hit &&
         pX < ac.x + ac.w && pX + PLAYER_W > ac.x &&
         PLAYER_Y < ac.y + ac.h && PLAYER_Y + PLAYER_H > ac.y) {
@@ -730,14 +692,13 @@ function update() {
       flashFrames = 20;
       ac.hit = true;
     }
-
     if (ac.y > CH + 30) aiCars.splice(i, 1);
   }
 
   /* Win */
-  if (dist >= RACE_DIST && cdState === 'racing') {
+  if (dist >= RACE_DIST) {
     cdState = 'won';
-    setTimeout(function () {
+    setTimeout(function() {
       document.getElementById('winOverlay').classList.add('show');
     }, 600);
   }
@@ -746,60 +707,42 @@ function update() {
 function spawnAI(tl, tr) {
   var laneW = Math.floor((tr - tl) / 3);
   var lane  = Math.floor(Math.random() * 3);
-  var ax    = tl + lane * laneW + Math.floor(laneW / 2 - PLAYER_W / 2);
+  var ax    = tl + lane * laneW + Math.floor(laneW/2 - PLAYER_W/2);
   var col   = AI_COLORS[aiColorIdx % AI_COLORS.length];
   aiColorIdx++;
-  aiCars.push({
-    x: ax, y: -PLAYER_H - 8,
-    w: PLAYER_W, h: Math.floor(PLAYER_H * 0.92),
-    col: col, hit: false
-  });
+  aiCars.push({x:ax, y:-PLAYER_H-8, w:PLAYER_W, h:Math.floor(PLAYER_H*0.92), col:col, hit:false});
 }
 
-/* ---- LOOP ---- */
-function tick() {
-  update();
-  draw();
-  rafId = requestAnimationFrame(tick);
-}
+function tick() { update(); draw(); rafId = requestAnimationFrame(tick); }
 
-/* ---- TOUCH/MOUSE CONTROLS ---- */
-canvas.addEventListener('touchstart', function (e) {
-  if (e.touches.length > 0) {
-    dragX0 = e.touches[0].clientX;
-    pX0    = pX;
+/* ---- CONTROLS ---- */
+canvas.addEventListener('touchstart', function(e) {
+  if (e.touches.length > 0) { dragX0 = e.touches[0].clientX; pX0 = pX; }
+  e.preventDefault();
+}, {passive:false});
+
+canvas.addEventListener('touchmove', function(e) {
+  if (dragX0 !== null) {
+    var dx = (e.touches[0].clientX - dragX0) / PX;
+    var crl = ROAD_L + curveDX, crr = ROAD_R + curveDX;
+    pX = Math.max(crl - 2, Math.min(crr - PLAYER_W + 2, pX0 + dx));
   }
   e.preventDefault();
-}, {passive: false});
+}, {passive:false});
 
-canvas.addEventListener('touchmove', function (e) {
-  if (dragX0 !== null && (cdState === 'racing' || cdState === 'go' || cdState === 'countdown')) {
-    var dx  = (e.touches[0].clientX - dragX0) / PX;
-    pX      = Math.max(ROAD_L - 2, Math.min(ROAD_R - PLAYER_W + 2, pX0 + dx));
-  }
-  e.preventDefault();
-}, {passive: false});
-
-canvas.addEventListener('touchend', function (e) {
-  e.preventDefault();
-}, {passive: false});
-
-canvas.addEventListener('mousedown', function (e) {
-  dragX0 = e.clientX;
-  pX0    = pX;
-});
-canvas.addEventListener('mousemove', function (e) {
+canvas.addEventListener('touchend',   function(e) { e.preventDefault(); }, {passive:false});
+canvas.addEventListener('mousedown',  function(e) { dragX0 = e.clientX; pX0 = pX; });
+canvas.addEventListener('mousemove',  function(e) {
   if (dragX0 !== null) {
     var dx = (e.clientX - dragX0) / PX;
-    pX     = Math.max(ROAD_L - 2, Math.min(ROAD_R - PLAYER_W + 2, pX0 + dx));
+    var crl = ROAD_L + curveDX, crr = ROAD_R + curveDX;
+    pX = Math.max(crl - 2, Math.min(crr - PLAYER_W + 2, pX0 + dx));
   }
 });
-canvas.addEventListener('mouseup',   function () { dragX0 = null; });
-canvas.addEventListener('mouseleave',function () { dragX0 = null; });
+canvas.addEventListener('mouseup',    function() { dragX0 = null; });
+canvas.addEventListener('mouseleave', function() { dragX0 = null; });
 
-window.addEventListener('resize', function () {
-  if (cdState !== 'idle') setupCanvas();
-});
+window.addEventListener('resize', function() { if (cdState !== 'idle') setupCanvas(); });
 
 })();
 </script>
