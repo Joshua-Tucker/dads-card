@@ -115,7 +115,7 @@
   #photoBg {
     position: absolute; inset: 0;
     background-image: url('photo.jpg');
-    background-size: cover; background-position: 72% top;
+    background-size: cover; background-position: 50% top;
   }
   #photoGrad {
     position: absolute; inset: 0;
@@ -210,7 +210,7 @@
   <div class="cover-inner">
     <span class="cover-badge">Paul &middot; Father&apos;s Day 2026</span>
     <h1 class="cover-title">Happy Father&apos;s Day,<em>Dad.</em></h1>
-    <p class="cover-sub">One quick race before you read your card.</p>
+    <p class="cover-sub">Dad tax. Race first, card after.</p>
     <div class="cover-flag"></div>
     <button class="cover-btn" id="btnRace">START RACE</button>
   </div>
@@ -221,7 +221,7 @@
   <div id="winOverlay">
     <div class="win-flag-row" id="winFlag"></div>
     <div class="win-title">P1 — CHEQUERED FLAG!</div>
-    <div class="win-sub">Get in, Paul. Absolutely flew it.</div>
+    <div class="win-sub">Obviously. Get in there, mate.</div>
     <button class="win-btn" id="btnPhoto">OPEN YOUR CARD &nbsp;→</button>
   </div>
 </div>
@@ -231,7 +231,7 @@
   <div id="photoGrad"></div>
   <div id="photoContent">
     <p class="photo-kicker">Paul &middot; Father&apos;s Day</p>
-    <h2 class="photo-title">We always knew<br>he had it in him.</h2>
+    <h2 class="photo-title">That&apos;s our Paul.</h2>
     <button class="photo-btn" id="btnLetter">READ YOUR CARD &nbsp;→</button>
   </div>
 </div>
@@ -434,13 +434,9 @@ function draw() {
   /* Grass base */
   fill(0, SKY, CW, CH - SKY, '#1a6b0a');
 
-  /* Scrolling stripes — scroll value increases → stripes move DOWN (forward) */
+  /* Road scroll offset for kerbs/dividers */
   var STRIPE = 14;
   var sOff = Math.floor(scroll * 1.8) % (STRIPE * 2);
-  for (var sy = SKY + sOff - STRIPE * 2; sy < CH; sy += STRIPE * 2) {
-    fill(0,  sy, rl,       STRIPE, '#228c12');
-    fill(rr, sy, CW - rr,  STRIPE, '#228c12');
-  }
 
   /* Road */
   fill(rl, SKY, rw, CH - SKY, '#2d2d2d');
